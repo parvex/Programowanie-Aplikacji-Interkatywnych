@@ -8,11 +8,10 @@ FractalWindow::FractalWindow(QWidget *parent) :
     ui(new Ui::FractalWindow)
 {
     ui->setupUi(this);
-    scene = new QGraphicsScene(this);
-    ui->graphicsView->setScene(scene);
 
-    QGraphicsPixmapItem item(QPixmap("c:\\test.png"));
-    scene->addItem(&item);
+    scene.addItem(new QGraphicsPixmapItem(QPixmap("c:\\test.jpg")));
+    ui->graphicsView->setScene(&scene);
+
     ui->graphicsView->show();
 
 }
@@ -20,5 +19,4 @@ FractalWindow::FractalWindow(QWidget *parent) :
 FractalWindow::~FractalWindow()
 {
     delete ui;
-    delete scene;
 }

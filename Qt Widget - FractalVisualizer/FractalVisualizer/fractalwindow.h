@@ -20,7 +20,7 @@ public:
 
 private:
     Ui::FractalWindow *ui;
-    QGraphicsScene *scene;
+    QGraphicsScene scene;
 };
 
 #endif // FRACTALWINDOW_H

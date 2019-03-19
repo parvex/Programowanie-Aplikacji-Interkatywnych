@@ -26,13 +26,20 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    Fractalimage.cpp \
+    fractalwindow.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    color.h \
+    bitmap_image.hpp \
+    Fractalimage.h \
+    fractalwindow.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    fractalwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

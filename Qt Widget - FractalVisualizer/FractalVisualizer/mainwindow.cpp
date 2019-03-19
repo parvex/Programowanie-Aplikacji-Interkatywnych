@@ -17,3 +17,10 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::on_pushButton_clicked()
+{
+    fractalWindow = new FractalWindow(this);
+    fractalWindow->show();
+    this->hide();
+}

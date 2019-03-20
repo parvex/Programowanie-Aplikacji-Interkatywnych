@@ -3,14 +3,21 @@
 #include <iostream>
 #include <fstream>
 #include <map>
-#include <QImage>
 #include "bitmap_image.hpp"
 
+
+class Color
+{
+    public:
+      Color() : red(0), green(0), blue(0) {}
+      Color(unsigned red, unsigned green, unsigned blue): red(red), green(green), blue(blue) {}
+      unsigned red, green, blue;
+};
 
 class FractalImage
 {
     public:
-    QImage fractal;
+    bitmap_image fractal;
     //size of the image
     static unsigned bmpXmax;
     static unsigned bmpYmax;
@@ -24,7 +31,7 @@ class FractalImage
     double ymax = 1.7;
     double height;
     double width;
-    QColor colors[151];
+    Color colors[151];
 
 
     class DecPoint
@@ -41,7 +48,7 @@ class FractalImage
         }
     };
 
-    FractalImage(): fractal(bmpXmax, bmpYmax, QImage::Format_RGB16)
+    FractalImage(): fractal(bmpXmax, bmpYmax)
     {
         width = xmax - xmin;
         double ratio = (double) bmpYmax/bmpXmax;
@@ -54,7 +61,7 @@ class FractalImage
         generateBitmap();
     }
 
-    FractalImage(FractalImage& im) : fractal(bmpXmax, bmpYmax, QImage::Format_RGB16)
+    FractalImage(FractalImage& im) : fractal(bmpXmax, bmpYmax)
     {
         xmin = im.xmin;
         xmax = im.xmax;
@@ -72,28 +79,28 @@ class FractalImage
         {
             colors[i] = IntToColor(i);
         }
-        colors[iter_max] = QColor(0,0,0);
+        colors[iter_max] = Color(0,0,0);
     }
 
     //gradient color generator from 0 to iter_max
-    static QColor IntToColor(int i)
+    static Color IntToColor(int i)
     {
-        QColor colorz[] = { QColor(0,0,0), QColor(0,0,255), QColor(0,255,255), QColor(0,128,0), QColor(189,183,107), QColor(255,165,0), QColor(255,0,0), QColor(255,255,0) };
+        Color colorz[] = { Color(0,0,0), Color(0,0,255), Color(0,255,255), Color(0,128,0), Color(189,183,107), Color(255,165,0), Color(255,0,0), Color(255,255,0) };
         float scaled = (float)(i) / iter_max * 7;
-        QColor color0 = colorz[(int)scaled];
-        QColor color1 = colorz[(int)scaled + 1];
+        Color color0 = colorz[(int)scaled];
+        Color color1 = colorz[(int)scaled + 1];
         float fraction = scaled - (int)scaled;
         //cast?
-        int resultR = ((1 - fraction) * (float)color0.red() + fraction * (float)color1.red());
-        int resultG = ((1 - fraction) * (float)color0.green() + fraction * (float)color1.green());
-        int resultB = ((1 - fraction) * (float)color0.blue() + fraction * (float)color1.blue());
-        return QColor(resultR, resultG, resultB);
+        int resultR = ((1 - fraction) * (float)color0.red + fraction * (float)color1.red);
+        int resultG = ((1 - fraction) * (float)color0.green + fraction * (float)color1.green);
+        int resultB = ((1 - fraction) * (float)color0.blue + fraction * (float)color1.blue);
+        return Color(resultR, resultG, resultB);
     }
 
     void generateBitmap()
     {
-        for (int x =0; x < bmpXmax; ++x)
-            for (int y = 0; y < bmpYmax; ++y)
+        for (int x = 1; x < bmpXmax; ++x)
+            for (int y = 1; y < bmpYmax; ++y)
             {
                 double Xtemp;
                 DecPoint point = scale(x, y);
@@ -106,7 +113,7 @@ class FractalImage
                     z.Y = 2 * Xtemp * z.Y + point.Y;
                 }
 
-                fractal.setPixelColor(x, y, colors[iter]);
+                fractal.set_pixel(x, y, colors[iter].red, colors[iter].green, colors[iter].blue);
             }
     }
 
@@ -116,7 +123,7 @@ class FractalImage
         return DecPoint( ((double)x / bmpXmax) * width + xmin, ((double)y / bmpYmax) * height + ymin);
     }
 
-    QImage& getBitmap()
+    bitmap_image& getBitmap()
     {
         return fractal;
     }

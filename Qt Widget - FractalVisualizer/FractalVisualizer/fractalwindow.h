@@ -1,6 +1,8 @@
 #ifndef FRACTALWINDOW_H
 #define FRACTALWINDOW_H
 
+#include "Fractalimage.h"
+
 #include <QMainWindow>
 #include <QtCore>
 #include <QtGui>
@@ -19,8 +21,9 @@ public:
     ~FractalWindow();
 
 private:
-    Ui::FractalWindow *ui;
+    Ui::FractalWindow* ui;
     QGraphicsScene scene;
+    FractalImage* fractalImage;
 };
 
 #endif // FRACTALWINDOW_H

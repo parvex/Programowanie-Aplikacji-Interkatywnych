@@ -20,8 +20,8 @@ private slots:
     void on_pushButton_clicked();
 
 private:
-    Ui::MainWindow *ui;
-    FractalWindow *fractalWindow;
+    Ui::MainWindow* ui;
+    FractalWindow* fractalWindow;
 };
 
 #endif // MAINWINDOW_H

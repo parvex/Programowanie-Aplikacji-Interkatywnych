@@ -8,8 +8,10 @@ FractalWindow::FractalWindow(QWidget *parent) :
     ui(new Ui::FractalWindow)
 {
     ui->setupUi(this);
-
-    scene.addItem(new QGraphicsPixmapItem(QPixmap("c:\\test.jpg")));
+    fractalImage = new FractalImage();
+    QPixmap pixMap;
+    pixMap.convertFromImage(fractalImage->getBitmap());
+    scene.addItem(new QGraphicsPixmapItem(pixMap));
     ui->graphicsView->setScene(&scene);
 
     ui->graphicsView->show();

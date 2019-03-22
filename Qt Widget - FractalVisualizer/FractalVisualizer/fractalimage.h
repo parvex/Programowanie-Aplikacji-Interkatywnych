@@ -4,7 +4,6 @@
 #include <fstream>
 #include <map>
 #include <QImage>
-#include "bitmap_image.hpp"
 
 
 class FractalImage
@@ -43,6 +42,22 @@ class FractalImage
 
     FractalImage(): fractal(bmpXmax, bmpYmax, QImage::Format_RGB16)
     {
+        width = xmax - xmin;
+        double ratio = (double) bmpYmax/bmpXmax;
+        double halfHeight = width*ratio/2;
+        ymax = halfHeight;
+        ymin = -halfHeight;
+        height = halfHeight*2;
+
+        generateColors();
+        generateBitmap();
+    }
+
+
+    FractalImage(unsigned w, unsigned h): fractal(w, h, QImage::Format_RGB16)
+    {
+        bmpXmax = w;
+        bmpYmax = h;
         width = xmax - xmin;
         double ratio = (double) bmpYmax/bmpXmax;
         double halfHeight = width*ratio/2;

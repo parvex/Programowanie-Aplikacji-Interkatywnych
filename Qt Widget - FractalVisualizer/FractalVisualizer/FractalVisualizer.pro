@@ -27,15 +27,15 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    Fractalimage.cpp \
-    fractalwindow.cpp
+    fractalwindow.cpp \
+    fractalscene.cpp \
+    fractalimage.cpp
 
 HEADERS += \
         mainwindow.h \
-    color.h \
-    bitmap_image.hpp \
-    Fractalimage.h \
-    fractalwindow.h
+    fractalwindow.h \
+    fractalimage.h \
+    fractalscene.h
 
 FORMS += \
         mainwindow.ui \

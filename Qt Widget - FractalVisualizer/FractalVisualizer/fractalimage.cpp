@@ -1,4 +1,4 @@
-#include "Fractalimage.h"
+#include "fractalimage.h"
 
 //static fields initialization
 unsigned FractalImage::bmpXmax = 1280;

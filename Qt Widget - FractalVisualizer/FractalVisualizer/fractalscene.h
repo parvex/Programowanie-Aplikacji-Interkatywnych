@@ -14,8 +14,10 @@ class FractalScene : public QGraphicsScene
 {
 public:
     FractalScene();
-    FractalScene(uint width, uint height);
+    FractalScene(uint width, uint height, uint fractalTypeIndex, uint colorTypeIndex, double cReal, double cImaginary);
+    ~FractalScene();
 
+    FractalImage* getFractalImage();
 private:
     QPointF mouseClickPoint;
     QPixmap pixMap;

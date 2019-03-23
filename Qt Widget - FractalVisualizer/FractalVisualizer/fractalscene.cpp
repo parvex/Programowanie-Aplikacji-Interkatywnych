@@ -4,12 +4,18 @@ FractalScene::FractalScene()
 {
 }
 
-FractalScene::FractalScene(unsigned width, unsigned height)
+FractalScene::FractalScene(uint width, uint height, uint fractalTypeIndex, uint colorTypeIndex, double cReal, double cImaginary)
 {
-    fractalImage = new FractalImage(width, height);
-    pixMap.convertFromImage(fractalImage->getBitmap());
+    fractalImage = new FractalImage(width, height, fractalTypeIndex, colorTypeIndex,  cReal, cImaginary);
+    pixMap.convertFromImage(*(fractalImage->getBitmap()));
     pixmapItem = new QGraphicsPixmapItem(pixMap);
     this->addItem(pixmapItem);
+}
+
+FractalScene::~FractalScene()
+{
+    delete fractalImage;
+    delete pixmapItem;
 }
 
 void FractalScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -18,7 +24,7 @@ void FractalScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     {
         mouseClickPoint = event->scenePos();
         fractalImage->centerAndZoom(mouseClickPoint.x(), mouseClickPoint.y());
-        pixMap.convertFromImage(fractalImage->getBitmap());
+        pixMap.convertFromImage(*(fractalImage->getBitmap()));
         pixmapItem->setPixmap(pixMap);
     }
     else
@@ -27,3 +33,9 @@ void FractalScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     }
 
 }
+
+FractalImage* FractalScene::getFractalImage()
+{
+    return fractalImage;
+}
+

@@ -16,8 +16,13 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void resetValues();
+
 private slots:
     void on_pushButton_clicked();
+    void on_typeComboBox_currentIndexChanged(int index);
+
+    void on_actionExit_triggered();
 
 private:
     Ui::MainWindow* ui;

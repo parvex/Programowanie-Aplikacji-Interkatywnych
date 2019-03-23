@@ -17,15 +17,20 @@ class FractalWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit FractalWindow(QWidget *parent = nullptr, uint width = 1286, uint height = 768);
+    explicit FractalWindow(QWidget *parent, uint width, uint height, uint fractalTypeIndex, uint colorTypeIndex, double cImaginary, double cReal);
     ~FractalWindow();
+
+private slots:
+    void on_actionGenerate_new_triggered();
+
+    void on_actionExit_triggered();
+
+    void on_actionSave_triggered();
 
 private:
     Ui::FractalWindow* ui;
     FractalScene* scene;
     uint width, height;
-    FractalImage* fractalImage;
-
 };
 
 #endif // FRACTALWINDOW_H

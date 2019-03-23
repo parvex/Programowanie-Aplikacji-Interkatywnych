@@ -9,7 +9,7 @@
 class FractalImage
 {
     public:
-    QImage fractal;
+    QImage* fractal;
     //size of the image
     static unsigned bmpXmax;
     static unsigned bmpYmax;
@@ -24,7 +24,9 @@ class FractalImage
     double height;
     double width;
     QColor colors[151];
-
+    uint fractalTypeIndex, colorTypeIndex;
+    double cReal;
+    double cImaginary;
 
     class DecPoint
     {
@@ -40,7 +42,7 @@ class FractalImage
         }
     };
 
-    FractalImage(): fractal(bmpXmax, bmpYmax, QImage::Format_RGB16)
+    FractalImage(): fractal(new QImage (bmpXmax, bmpYmax, QImage::Format_RGB16))
     {
         width = xmax - xmin;
         double ratio = (double) bmpYmax/bmpXmax;
@@ -54,7 +56,8 @@ class FractalImage
     }
 
 
-    FractalImage(unsigned w, unsigned h): fractal(w, h, QImage::Format_RGB16)
+    FractalImage(uint w, uint h, uint fractalTypeIndex, uint colorTypeIndex, double cReal, double cImaginary): fractal(new QImage(w, h, QImage::Format_RGB16)),
+        fractalTypeIndex(fractalTypeIndex), colorTypeIndex(colorTypeIndex), cReal(cReal), cImaginary(cImaginary)
     {
         bmpXmax = w;
         bmpYmax = h;
@@ -69,7 +72,7 @@ class FractalImage
         generateBitmap();
     }
 
-    FractalImage(FractalImage& im) : fractal(bmpXmax, bmpYmax, QImage::Format_RGB16)
+    FractalImage(FractalImage& im) : fractal(new QImage(bmpXmax, bmpYmax, QImage::Format_RGB16))
     {
         xmin = im.xmin;
         xmax = im.xmax;
@@ -91,9 +94,18 @@ class FractalImage
     }
 
     //gradient color generator from 0 to iter_max
-    static QColor IntToColor(int i)
+    QColor IntToColor(int i)
     {
-        QColor colorz[] = { QColor(0,0,0), QColor(0,0,255), QColor(0,255,255), QColor(0,128,0), QColor(189,183,107), QColor(255,165,0), QColor(255,0,0), QColor(255,255,0) };
+        QColor* colorz;
+        if(colorTypeIndex == 0)
+        {
+            colorz = new QColor[8] { QColor(0,0,0), QColor(0,0,255), QColor(0,255,255), QColor(0,128,0), QColor(189,183,107), QColor(255,165,0), QColor(255,0,0), QColor(255,255,0) };
+        }
+        else if (colorTypeIndex == 1)
+        {
+            colorz = new QColor[8] {QColor(255,255,0), QColor(255,0,0), QColor(255,165,0), QColor(189,183,107),  QColor(0,128,0), QColor(0,255,255), QColor(0,0,255), QColor(0,0,0) };
+        }
+
         float scaled = (float)(i) / iter_max * 7;
         QColor color0 = colorz[(int)scaled];
         QColor color1 = colorz[(int)scaled + 1];
@@ -102,27 +114,53 @@ class FractalImage
         int resultR = ((1 - fraction) * (float)color0.red() + fraction * (float)color1.red());
         int resultG = ((1 - fraction) * (float)color0.green() + fraction * (float)color1.green());
         int resultB = ((1 - fraction) * (float)color0.blue() + fraction * (float)color1.blue());
+
+        delete colorz;
         return QColor(resultR, resultG, resultB);
     }
 
     void generateBitmap()
     {
-        for (int x =0; x < bmpXmax; ++x)
-            for (int y = 0; y < bmpYmax; ++y)
-            {
-                double Xtemp;
-                DecPoint point = scale(x, y);
-                DecPoint z;
-                int iter;
-                for (iter = 0; iter < iter_max && z.Abs2() < 4; ++iter)
+        if(fractalTypeIndex == 0)
+        {
+            for (int x =0; x < bmpXmax; ++x)
+                for (int y = 0; y < bmpYmax; ++y)
                 {
-                    Xtemp = z.X;
-                    z.X = z.X * z.X - z.Y * z.Y + point.X;
-                    z.Y = 2 * Xtemp * z.Y + point.Y;
-                }
+                    double Xtemp;
+                    DecPoint point = scale(x, y);
+                    DecPoint z;
+                    int iter;
+                    for (iter = 0; iter < iter_max && z.Abs2() < 4; ++iter)
+                    {
+                        Xtemp = z.X;
+                        z.X = z.X * z.X - z.Y * z.Y + point.X;
+                        z.Y = 2 * Xtemp * z.Y + point.Y;
+                    }
 
-                fractal.setPixelColor(x, y, colors[iter]);
-            }
+                    fractal->setPixelColor(x, y, colors[iter]);
+                }
+        }
+        else if (fractalTypeIndex == 1)
+        {
+            for (int x =0; x < bmpXmax; ++x)
+                for (int y = 0; y < bmpYmax; ++y)
+                {
+                    double Xtemp;
+                    DecPoint point = scale(x, y);
+                    DecPoint z = point;
+                    int iter;
+                    for (iter = 0; iter < iter_max && z.Abs2() < 4; ++iter)
+                    {
+                        Xtemp = z.X;
+                        z.X = z.X * z.X - z.Y * z.Y + cReal;
+                        z.Y = 2 * Xtemp * z.Y + cImaginary;
+                    }
+
+                    fractal->setPixelColor(x, y, colors[iter]);
+                }
+        }
+
+
     }
 
     //scales pixel to fit in mandelbrott domain
@@ -131,7 +169,7 @@ class FractalImage
         return DecPoint( ((double)x / bmpXmax) * width + xmin, ((double)y / bmpYmax) * height + ymin);
     }
 
-    QImage& getBitmap()
+    QImage* getBitmap()
     {
         return fractal;
     }

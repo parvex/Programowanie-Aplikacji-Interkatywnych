@@ -29,13 +29,15 @@ SOURCES += \
         mainwindow.cpp \
     fractalwindow.cpp \
     fractalscene.cpp \
-    fractalimage.cpp
+    fractalimage.cpp \
+    zoomcommand.cpp
 
 HEADERS += \
         mainwindow.h \
     fractalwindow.h \
     fractalimage.h \
-    fractalscene.h
+    fractalscene.h \
+    zoomcommand.h
 
 FORMS += \
         mainwindow.ui \

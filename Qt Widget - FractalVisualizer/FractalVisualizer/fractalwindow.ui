@@ -42,7 +42,7 @@
     <property name="title">
      <string>Edit</string>
     </property>
-    <addaction name="actionUndo"/>
+    <addaction name="actionUndo_zoom"/>
     <addaction name="actionRedo_zoom"/>
    </widget>
    <addaction name="menuFile"/>
@@ -63,7 +63,7 @@
     <string>Generate new</string>
    </property>
   </action>
-  <action name="actionUndo">
+  <action name="actionUndo_zoom">
    <property name="text">
     <string>Undo zoom</string>
    </property>

@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QUndoStack>
 #include "fractalwindow.h"
 
 namespace Ui {

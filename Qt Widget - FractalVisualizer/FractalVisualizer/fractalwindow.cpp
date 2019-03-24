@@ -9,10 +9,13 @@
 FractalWindow::FractalWindow(QWidget *parent, uint width, uint height, uint fractalTypeIndex, uint colorTypeIndex, double cReal, double cImaginary) : QMainWindow(parent), ui(new Ui::FractalWindow)
 {
     ui->setupUi(this);
-    scene = new FractalScene(width, height, fractalTypeIndex, colorTypeIndex, cReal, cImaginary);
+    undoStack = new QUndoStack();
+
+    scene = new FractalScene(width, height, fractalTypeIndex, colorTypeIndex, cReal, cImaginary, undoStack);
     ui->graphicsView->setScene(scene);
 
     this->setFixedSize(QSize(width+20, height+41));
+
     ui->graphicsView->show();
 }
 
@@ -20,6 +23,7 @@ FractalWindow::~FractalWindow()
 {
     delete ui;
     delete scene;
+    delete undoStack;
 }
 
 void FractalWindow::on_actionGenerate_new_triggered()
@@ -45,7 +49,17 @@ void FractalWindow::on_actionSave_triggered()
             return;
         else
         {
-            scene->getFractalImage()->getBitmap()->save(fileName, "bmp", 100);
+            scene->getFractalImage()->getBitmap().save(fileName, "bmp", 100);
         }
 
+}
+
+void FractalWindow::on_actionUndo_zoom_triggered()
+{
+    undoStack->undo();
+}
+
+void FractalWindow::on_actionRedo_zoom_triggered()
+{
+    undoStack->redo();
 }

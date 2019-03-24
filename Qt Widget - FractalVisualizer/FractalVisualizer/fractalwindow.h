@@ -4,6 +4,7 @@
 #include "fractalimage.h"
 
 #include <QMainWindow>
+#include <QUndoStack>
 #include <QtCore>
 #include <QtGui>
 #include "fractalscene.h"
@@ -27,10 +28,16 @@ private slots:
 
     void on_actionSave_triggered();
 
+    void on_actionUndo_zoom_triggered();
+
+    void on_actionRedo_zoom_triggered();
+
 private:
     Ui::FractalWindow* ui;
     FractalScene* scene;
     uint width, height;
+    QUndoStack* undoStack;
+
 };
 
 #endif // FRACTALWINDOW_H

@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->spinBoxImaginary->setRange(-1,1);
     ui->spinBoxImaginary->setSingleStep(0.1);
 
+
     ui->spinBoxReal->hide();
     ui->spinBoxImaginary->hide();
     ui->realLabel->hide();

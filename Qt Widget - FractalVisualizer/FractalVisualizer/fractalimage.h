@@ -9,13 +9,15 @@
 class FractalImage
 {
     public:
-    QImage* fractal;
+
     //size of the image
     static unsigned bmpXmax;
     static unsigned bmpYmax;
     //number of iterations before accepting point
     static unsigned iter_max;
     static unsigned zoom;
+
+    QImage fractal;
     //domain in which mandelbrott set is being tested
     double xmin = -2.2;
     double xmax = 1.2;
@@ -42,7 +44,7 @@ class FractalImage
         }
     };
 
-    FractalImage(): fractal(new QImage (bmpXmax, bmpYmax, QImage::Format_RGB16))
+    FractalImage(): fractal(bmpXmax, bmpYmax, QImage::Format_RGB16)
     {
         width = xmax - xmin;
         double ratio = (double) bmpYmax/bmpXmax;
@@ -56,7 +58,7 @@ class FractalImage
     }
 
 
-    FractalImage(uint w, uint h, uint fractalTypeIndex, uint colorTypeIndex, double cReal, double cImaginary): fractal(new QImage(w, h, QImage::Format_RGB16)),
+    FractalImage(uint w, uint h, uint fractalTypeIndex, uint colorTypeIndex, double cReal, double cImaginary): fractal(w, h, QImage::Format_RGB16),
         fractalTypeIndex(fractalTypeIndex), colorTypeIndex(colorTypeIndex), cReal(cReal), cImaginary(cImaginary)
     {
         bmpXmax = w;
@@ -72,7 +74,7 @@ class FractalImage
         generateBitmap();
     }
 
-    FractalImage(FractalImage& im) : fractal(new QImage(bmpXmax, bmpYmax, QImage::Format_RGB16))
+    FractalImage(FractalImage& im) : fractal(bmpXmax, bmpYmax, QImage::Format_RGB16)
     {
         xmin = im.xmin;
         xmax = im.xmax;
@@ -80,6 +82,12 @@ class FractalImage
         ymax = im.ymax;
         height = im.height;
         width = im.width;
+        cReal = im.cReal;
+        cImaginary = im.cImaginary;
+        fractalTypeIndex = im.fractalTypeIndex;
+        colorTypeIndex = im.colorTypeIndex;
+        fractal = im.fractal.copy();
+
         generateColors();
     }
 
@@ -137,12 +145,13 @@ class FractalImage
                         z.Y = 2 * Xtemp * z.Y + point.Y;
                     }
 
-                    fractal->setPixelColor(x, y, colors[iter]);
+                    fractal.setPixelColor(x, y, colors[iter]);
                 }
         }
         else if (fractalTypeIndex == 1)
         {
             for (int x =0; x < bmpXmax; ++x)
+            {
                 for (int y = 0; y < bmpYmax; ++y)
                 {
                     double Xtemp;
@@ -156,11 +165,10 @@ class FractalImage
                         z.Y = 2 * Xtemp * z.Y + cImaginary;
                     }
 
-                    fractal->setPixelColor(x, y, colors[iter]);
+                    fractal.setPixelColor(x, y, colors[iter]);
                 }
+            }
         }
-
-
     }
 
     //scales pixel to fit in mandelbrott domain
@@ -169,7 +177,7 @@ class FractalImage
         return DecPoint( ((double)x / bmpXmax) * width + xmin, ((double)y / bmpYmax) * height + ymin);
     }
 
-    QImage* getBitmap()
+    QImage& getBitmap()
     {
         return fractal;
     }

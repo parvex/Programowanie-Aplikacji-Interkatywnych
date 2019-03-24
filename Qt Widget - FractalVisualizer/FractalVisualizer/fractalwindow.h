@@ -18,7 +18,7 @@ class FractalWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit FractalWindow(QWidget *parent, uint width, uint height, uint fractalTypeIndex, uint colorTypeIndex, double cImaginary, double cReal);
+    explicit FractalWindow(QWidget *parent, uint width, uint height, uint fractalTypeIndex, uint colorTypeIndex, double cImaginary, double cReal, uint iterations);
     ~FractalWindow();
 
 private slots:

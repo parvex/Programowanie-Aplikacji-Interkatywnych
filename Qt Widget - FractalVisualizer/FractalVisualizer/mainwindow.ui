@@ -26,23 +26,26 @@
       <property name="verticalSpacing">
        <number>20</number>
       </property>
-      <item row="5" column="3">
-       <widget class="QSpinBox" name="spinBoxHeight"/>
-      </item>
-      <item row="5" column="1">
-       <widget class="QSpinBox" name="spinBoxWidth"/>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label">
+      <item row="5" column="2">
+       <widget class="QLabel" name="label_4">
         <property name="text">
-         <string>Type:</string>
+         <string>X</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
-      <item row="5" column="0">
-       <widget class="QLabel" name="label_3">
+      <item row="2" column="1">
+       <widget class="QDoubleSpinBox" name="spinBoxReal"/>
+      </item>
+      <item row="3" column="1" colspan="3">
+       <widget class="QComboBox" name="colorsComboBox"/>
+      </item>
+      <item row="2" column="2">
+       <widget class="QLabel" name="imaginaryLabel">
         <property name="text">
-         <string>Resolution:</string>
+         <string>c (imaginary)</string>
         </property>
        </widget>
       </item>
@@ -53,21 +56,8 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="1" colspan="3">
-       <widget class="QComboBox" name="colorsComboBox"/>
-      </item>
-      <item row="1" column="1" colspan="3">
-       <widget class="QComboBox" name="typeComboBox"/>
-      </item>
-      <item row="5" column="2">
-       <widget class="QLabel" name="label_4">
-        <property name="text">
-         <string>X</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
+      <item row="5" column="1">
+       <widget class="QSpinBox" name="spinBoxWidth"/>
       </item>
       <item row="2" column="0">
        <widget class="QLabel" name="realLabel">
@@ -79,18 +69,38 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
-       <widget class="QDoubleSpinBox" name="spinBoxReal"/>
+      <item row="5" column="3">
+       <widget class="QSpinBox" name="spinBoxHeight"/>
       </item>
-      <item row="2" column="2">
-       <widget class="QLabel" name="imaginaryLabel">
-        <property name="text">
-         <string>c (imaginary)</string>
-        </property>
-       </widget>
+      <item row="1" column="1" colspan="3">
+       <widget class="QComboBox" name="typeComboBox"/>
       </item>
       <item row="2" column="3">
        <widget class="QDoubleSpinBox" name="spinBoxImaginary"/>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Resolution:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Type:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Iterations:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="QSpinBox" name="spinBoxIterations"/>
       </item>
      </layout>
     </item>

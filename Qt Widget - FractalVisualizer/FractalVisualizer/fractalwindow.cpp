@@ -6,14 +6,16 @@
 #include "fractalscene.h"
 #include "mainwindow.h"
 
-FractalWindow::FractalWindow(QWidget *parent, uint width, uint height, uint fractalTypeIndex, uint colorTypeIndex, double cReal, double cImaginary) : QMainWindow(parent), ui(new Ui::FractalWindow)
+FractalWindow::FractalWindow(QWidget *parent, uint width, uint height, uint fractalTypeIndex, uint colorTypeIndex, double cReal, double cImaginary, uint iterations) : QMainWindow(parent), ui(new Ui::FractalWindow)
 {
     ui->setupUi(this);
     undoStack = new QUndoStack();
+    undoStack->setUndoLimit(50);
 
-    scene = new FractalScene(width, height, fractalTypeIndex, colorTypeIndex, cReal, cImaginary, undoStack);
+    scene = new FractalScene(width, height, fractalTypeIndex, colorTypeIndex, cReal, cImaginary, undoStack, iterations);
     ui->graphicsView->setScene(scene);
 
+    this->setWindowTitle("Fractal visualizer");
     this->setFixedSize(QSize(width+20, height+41));
 
     ui->graphicsView->show();

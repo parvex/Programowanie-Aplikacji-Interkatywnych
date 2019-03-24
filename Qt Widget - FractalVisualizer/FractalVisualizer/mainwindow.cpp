@@ -15,10 +15,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->spinBoxHeight->setRange(400,1080);
 
     ui->spinBoxReal->setRange(-1,1);
-    ui->spinBoxReal->setSingleStep(0.1);
     ui->spinBoxImaginary->setRange(-1,1);
-    ui->spinBoxImaginary->setSingleStep(0.1);
+    ui->spinBoxReal->setValue(0.285);
+    ui->spinBoxImaginary->setValue(0.01);
 
+    ui->spinBoxIterations->setRange(1,1000);
+    ui->spinBoxIterations->setValue(200);
+
+    this->setWindowTitle("Fractal generator");
 
     ui->spinBoxReal->hide();
     ui->spinBoxImaginary->hide();
@@ -35,7 +39,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_clicked()
 {
     fractalWindow = new FractalWindow(this, ui->spinBoxWidth->value(), ui->spinBoxHeight->value(), ui->typeComboBox->currentIndex(),
-                                      ui->colorsComboBox->currentIndex(), ui->spinBoxReal->value(), ui->spinBoxImaginary->value());
+                                      ui->colorsComboBox->currentIndex(), ui->spinBoxReal->value(), ui->spinBoxImaginary->value(), ui->spinBoxIterations->value());
     fractalWindow->show();
     this->hide();
 }
@@ -66,6 +70,9 @@ void MainWindow::resetValues()
     ui->spinBoxHeight->setValue(0);
     ui->spinBoxReal->setValue(0);
     ui->spinBoxImaginary->setValue(0);
+    ui->spinBoxIterations->setValue(200);
+    ui->spinBoxReal->setValue(0.285);
+    ui->spinBoxImaginary->setValue(0.01);
 }
 
 void MainWindow::on_actionExit_triggered()

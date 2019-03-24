@@ -17,7 +17,7 @@ class FractalScene : public QGraphicsScene
 {
 public:
     FractalScene();
-    FractalScene(uint width, uint height, uint fractalTypeIndex, uint colorTypeIndex, double cReal, double cImaginary, QUndoStack* undoStack);
+    FractalScene(uint width, uint height, uint fractalTypeIndex, uint colorTypeIndex, double cReal, double cImaginary, QUndoStack* undoStack, uint iterations);
     ~FractalScene();
 
     void setFractalImage(std::shared_ptr<FractalImage> fractalImage);

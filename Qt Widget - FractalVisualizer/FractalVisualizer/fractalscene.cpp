@@ -5,10 +5,10 @@ FractalScene::FractalScene()
 {
 }
 
-FractalScene::FractalScene(uint width, uint height, uint fractalTypeIndex, uint colorTypeIndex, double cReal, double cImaginary, QUndoStack* undoStack):
+FractalScene::FractalScene(uint width, uint height, uint fractalTypeIndex, uint colorTypeIndex, double cReal, double cImaginary, QUndoStack* undoStack, uint iterations):
     undoStack(undoStack)
 {
-    fractalImage =  std::make_shared<FractalImage>(width, height, fractalTypeIndex, colorTypeIndex,  cReal, cImaginary);
+    fractalImage =  std::make_shared<FractalImage>(width, height, fractalTypeIndex, colorTypeIndex,  cReal, cImaginary, iterations);
     pixMap.convertFromImage(fractalImage->getBitmap());
     pixmapItem = new QGraphicsPixmapItem(pixMap);
     this->addItem(pixmapItem);

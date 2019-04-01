@@ -150,7 +150,6 @@ Window {
 
             if(snakeArray[1])
                 previousPartDiff = [snakeArray[1].x_pos - snakeArray[0].x_pos, snakeArray[1].y_pos - snakeArray[0].y_pos];
-            console.log(previousPartDiff);
         }
 
         onTriggered: { move() }

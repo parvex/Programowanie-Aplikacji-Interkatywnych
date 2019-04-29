@@ -144,5 +144,10 @@ namespace MDIApp
         {
             errorProvider.SetError(authorTextBox, "");
         }
+
+        private void IndexTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

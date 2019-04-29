@@ -82,7 +82,7 @@
             this.nameTextBox.Location = new System.Drawing.Point(84, 42);
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(267, 20);
-            this.nameTextBox.TabIndex = 3;
+            this.nameTextBox.TabIndex = 2;
             this.nameTextBox.Validated += new System.EventHandler(this.nameTextBox_Validated);
             // 
             // indexTextBox
@@ -90,7 +90,8 @@
             this.indexTextBox.Location = new System.Drawing.Point(84, 3);
             this.indexTextBox.Name = "indexTextBox";
             this.indexTextBox.Size = new System.Drawing.Size(267, 20);
-            this.indexTextBox.TabIndex = 4;
+            this.indexTextBox.TabIndex = 1;
+            this.indexTextBox.TextChanged += new System.EventHandler(this.IndexTextBox_TextChanged);
             this.indexTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.IndexTextBox_Validating);
             this.indexTextBox.Validated += new System.EventHandler(this.IndexTextBox_Validated);
             // 
@@ -99,7 +100,7 @@
             this.releaseDateTimePicker.Location = new System.Drawing.Point(84, 81);
             this.releaseDateTimePicker.Name = "releaseDateTimePicker";
             this.releaseDateTimePicker.Size = new System.Drawing.Size(267, 20);
-            this.releaseDateTimePicker.TabIndex = 5;
+            this.releaseDateTimePicker.TabIndex = 3;
             this.releaseDateTimePicker.Value = new System.DateTime(1990, 6, 2, 0, 0, 0, 0);
             this.releaseDateTimePicker.Validating += new System.ComponentModel.CancelEventHandler(this.releaseDateTimePicker_Validating);
             this.releaseDateTimePicker.Validated += new System.EventHandler(this.releaseDateTimePicker_Validated);
@@ -148,14 +149,14 @@
             this.genreComboBox.Location = new System.Drawing.Point(84, 159);
             this.genreComboBox.Name = "genreComboBox";
             this.genreComboBox.Size = new System.Drawing.Size(267, 21);
-            this.genreComboBox.TabIndex = 11;
+            this.genreComboBox.TabIndex = 5;
             // 
             // authorTextBox
             // 
             this.authorTextBox.Location = new System.Drawing.Point(84, 120);
             this.authorTextBox.Name = "authorTextBox";
             this.authorTextBox.Size = new System.Drawing.Size(267, 20);
-            this.authorTextBox.TabIndex = 12;
+            this.authorTextBox.TabIndex = 4;
             this.authorTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.authorTextBox_Validating);
             this.authorTextBox.Validated += new System.EventHandler(this.authorTextBox_Validated);
             // 
